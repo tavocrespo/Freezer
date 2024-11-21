@@ -1,0 +1,489 @@
+/*menú hamburguesa */
+.menu-button {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 10000;
+  background: #87CEEB;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  cursor: pointer;
+  color: white;
+  font-size: 20px;
+}
+
+/* sidebar principal */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -250px;
+  width: 250px;
+  height: 100vh;
+  background-color: #87CEEB;
+  transition: left 0.3s ease; 
+  padding: 60px 20px 20px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  z-index: 999;
+}
+
+.sidebar.open {
+  left: 0;
+}
+
+/* Estilos para el sidebar de artículos */
+.articles-sidebar {
+  position: fixed;
+  top: 0;
+  right: -300px;
+  width: 300px;
+  height: 100vh;
+  background-color: #87CEEB;
+  transition: right 0.3s ease;
+  padding: 20px;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+  z-index: 999;
+  overflow-y: auto;
+}
+
+.articles-sidebar.open {
+  right: 0;
+}
+
+.articles-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  color: white;
+}
+
+.articles-header h2 {
+  margin: 0;
+}
+
+.cart-icon {
+  font-size: 24px;
+}
+
+.article-item {
+  background: white;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.article-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.article-item.selected {
+  border: 2px solid #87CEEB;
+  background-color: rgba(135, 206, 235, 0.1);
+}
+
+.article-item img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-right: 15px;
+}
+
+.article-info h3 {
+  margin: 0 0 5px 0;
+  color: #333;
+}
+
+.article-info p {
+  margin: 3px 0;
+  color: #666;
+  font-size: 14px;
+}
+
+.close-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* Ajusta el contenido principal */
+.main-content {
+  position: relative;
+  transition: margin-left 0.3s ease, margin-right 0.3s ease;
+  width: 100%;
+  padding-bottom: 70px;
+}
+
+.main-content.shifted {
+  margin-left: 250px; /* Desplaza el contenido hacia la derecha cuando el sidebar está abierto */
+}
+
+/* Cuando el sidebar de artículos está abierto */
+.main-content.articles-shifted {
+  margin-right: 300px;
+  margin-left: -300px;
+}
+
+/* Estilos para el logo */
+.logo-container {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.sidebar-logo {
+  width: 150px;
+  height: auto;
+}
+
+/* Estilos para la lista de menú */
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar li {
+  padding: 15px 10px;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.sidebar li:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Ajustes responsivos */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    left: -100%;
+  }
+
+  .main-content.shifted {
+    margin-left: 0;
+  }
+
+  .menu-button.open {
+    left: calc(100% - 50px);
+  }
+}
+
+/* Estilos para el sidebar del usuario */
+.user-sidebar {
+  position: fixed;
+  top: 0;
+  right: -250px; /* Cambiado a right para que aparezca desde la derecha */
+  width: 250px;
+  height: 100vh;
+  background-color: #87CEEB;
+  transition: right 0.3s ease;
+  padding: 60px 20px 20px;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+  z-index: 999;
+}
+
+.user-sidebar.open {
+  right: 0;
+}
+
+.user-sidebar .close-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.user-profile {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.user-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.user-sidebar ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.user-sidebar li {
+  padding: 15px 10px;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.user-sidebar li:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Ajusta el desplazamiento del contenido principal */
+.main-content.shifted {
+  margin-right: 250px; /* Añade margen derecho cuando el menú de usuario está abierto */
+}
+
+/* Asegúrate de que el contenido principal se ajuste correctamente */
+.main-content {
+  transition: margin-right 0.3s ease, margin-left 0.3s ease;
+}
+
+/* Estilos para la barra de navegación inferior */
+.bottom-navbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background-color: #87CEEB;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+  cursor: pointer;
+  padding: 8px 20px;
+  transition: background-color 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.nav-item svg {
+  font-size: 24px;
+  margin-bottom: 4px;
+}
+
+.nav-item span {
+  font-size: 12px;
+}
+
+.nav-item.active {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.nav-item::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100px;
+  height: 100px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+.nav-item:active::after {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+}
+
+/* Asegúrate de que el mapa no se superponga con la barra inferior */
+.map-container {
+  height: calc(100vh - 60px); /* Resta la altura de la barra inferior */
+}
+
+@media (max-width: 768px) {
+  .articles-sidebar {
+    width: 100%;
+    right: -100%;
+  }
+  
+  .main-content.shifted {
+    margin-right: 0;
+  }
+}
+
+/* Asegúrate de que el contenedor del mapa ocupe todo el espacio disponible */
+.map-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Ajusta el contenido principal para que el mapa se vea correctamente */
+.main-content {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  padding: 0 !important; /* Elimina el padding si existe */
+}
+
+/* Ajusta el título para que no interfiera con el mapa */
+.main-content h1 {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin: 0;
+}
+
+/* Asegúrate de que el contenedor principal también ocupe toda la pantalla */
+.home-container {
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+/*Agregar.jsx/*
+/* Estilos para el título de la página */
+
+.page-title {
+  font-size: 2.5rem; /* Tamaño de fuente grande */
+  font-weight: bold; /* Negrita */
+  color: #2c3e50; /* Color oscuro */
+  text-align: center; /* Centrado */
+  margin: 20px 0; /* Margen superior e inferior */
+}
+
+/* Estilos para el formulario */
+.add-asset-form {
+  display: flex;
+  flex-direction: column; /* Coloca los elementos en columna */
+  align-items: center; /* Centra los elementos */
+  max-width: 400px; /* Ancho máximo del formulario */
+  margin: 0 auto; /* Centra el formulario horizontalmente */
+  padding: 20px; /* Espaciado interno */
+  background-color: #f9f9f9; /* Fondo claro */
+  border-radius: 8px; /* Bordes redondeados */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+}
+
+/* Estilos para los campos del formulario */
+.form-input {
+  width: 100%; /* Ancho completo */
+  padding: 10px; /* Espaciado interno */
+  margin: 10px 0; /* Margen superior e inferior */
+  border: 1px solid #ccc; /* Borde gris claro */
+  border-radius: 4px; /* Bordes redondeados */
+  font-size: 1rem; /* Tamaño de fuente */
+  transition: border-color 0.3s ease; /* Transición suave para el borde */
+}
+
+/* Efecto focus en los campos del formulario */
+.form-input:focus {
+  border-color: #3498db; /* Cambia el color del borde al enfocar */
+  outline: none; /* Elimina el contorno predeterminado */
+}
+
+/* Estilos para el botón de envío */
+.submit-button {
+  padding: 10px 20px; /* Espaciado interno */
+  margin-top: 20px; /* Margen superior */
+  background-color: #3498db; /* Color de fondo */
+  color: white; /* Color del texto */
+  border: none; /* Sin borde */
+  border-radius: 4px; /* Bordes redondeados */
+  font-size: 1rem; /* Tamaño de fuente */
+  cursor: pointer; /* Cambia el cursor al pasar el mouse */
+  transition: background-color 0.3s ease; /* Transición suave para el fondo */
+}
+
+/*Config.jsx/*
+/* Efecto hover en el botón */
+.submit-button:hover {
+  background-color: #2980b9; /* Color más oscuro al pasar el mouse */
+}
+
+.config-container {
+    padding: 20px;
+}
+
+.config-item {
+    margin-bottom: 15px;
+}
+
+.config-item label {
+    font-size: 16px;
+}
+
+/* Aplica esto al contenedor que necesita scroll */
+.scroll-container {
+  width: 100%; /* Ajusta según el diseño */
+  height: 400px; /* Ajusta la altura */
+  overflow-y: scroll; /* Scroll solo en el eje vertical */
+  overflow-x: hidden; /* Evitar scroll horizontal si no es necesario */
+  scrollbar-width: thin; /* Opcional: personaliza el scroll en Firefox */
+  scrollbar-color: #ccc #f0f0f0; /* Opcional: colores en Firefox */
+}
+
+/* Para navegadores basados en WebKit (como Chrome y Edge) */
+.scroll-container::-webkit-scrollbar {
+  width: 8px; /* Ancho del scroll */
+}
+
+.scroll-container::-webkit-scrollbar-thumb {
+  background-color: #888; /* Color del scroll */
+  border-radius: 4px; /* Bordes redondeados */
+}
+
+.scroll-container::-webkit-scrollbar-thumb:hover {
+  background-color: #555; /* Color al pasar el mouse */
+}
+
+.config-scroll-container {
+    max-height: 400px; /* Ajusta la altura máxima según sea necesario */
+    overflow-y: auto; /* Habilita la barra de desplazamiento vertical */
+    border: 1px solid #ccc; /* Opcional: agrega un borde para distinguir el área */
+    padding: 10px; /* Opcional: agrega un poco de espacio interno */
+    border-radius: 5px; /* Opcional: redondea las esquinas */
+    margin-bottom: 20px; /* Espacio entre el formulario y el BottomNavbar */
+}
+
+.config-item {
+    margin-bottom: 15px; /* Espacio entre los elementos de configuración */
+}
+
+.config-item label {
+    display: block; /* Asegura que el label ocupe toda la línea */
+    margin-bottom: 5px; /* Espacio entre el label y el input/select */
+}
