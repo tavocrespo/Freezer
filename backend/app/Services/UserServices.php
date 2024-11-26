@@ -28,13 +28,11 @@ class UserServices
             'name' => 'required|max:100|string',
             'password' => 'string|min:8|required',
             'email' => 'required|email|unique:users',
-            'role_id' => 'required|integer|exists:roles,id'
+            // 'role_id' => 'required|integer|exists:roles,id'
         ]);
 
         if ($validate->fails()) {
             $errors = $validate->errors()->all();
-
-            ;
             return response()->json(
                 [
                     'success' => false,
@@ -47,7 +45,7 @@ class UserServices
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
-            'role_id' => $data['role_id']
+            // 'role_id' => $data['role_id']
         ]);
 
         $token = $user
@@ -59,9 +57,9 @@ class UserServices
             ->cookie('auth_token', $token);
     }
 
-    public function getAllUsersService(){
+    public function getAllUsersService()
+    {
         $users = User::all();
-
         return $users;
     }
 }
