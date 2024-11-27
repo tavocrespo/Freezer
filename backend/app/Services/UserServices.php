@@ -43,6 +43,8 @@ class UserServices
             );
         }
 
+        // return ($data);
+
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],

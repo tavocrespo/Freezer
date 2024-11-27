@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   signInWithEmailAndPassword,
@@ -8,6 +8,7 @@ import {
 import { auth } from "../firebase";
 import useFetch from "../hooks/fetch/useFetch";
 import { API_URL } from "../constants/api";
+import useToast from "../hooks/toast/useToast";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -15,7 +16,8 @@ function Login() {
   const navigate = useNavigate();
   const [registrando, setRegistrando] = useState(false);
 
-  const { fetchData, dataResponse } = useFetch();
+  const { fetchData } = useFetch();
+  const { exitoToast, errorToast } = useToast();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -49,67 +51,76 @@ function Login() {
     }
   };
 
-  const handleRegisterApi = () => {
-    fetchData(`${API_URL}/user`, {
+  const handleRegisterApi = async () => {
+    const respuesta = await fetchData(`${API_URL}/user`, {
       method: "POST",
-      header: {
+      headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
         name: "prueba",
-        email: "prueba2@gmail.com",
-        password: "prueba123",
+        email: email,
+        password: password,
       }),
     });
+    if (respuesta.success) {
+      exitoToast(respuesta.message);
+    } else {
+      errorToast(respuesta.message);
+    }
   };
 
   return (
-    <div>
-      <div>
-        <img
-          src="/src/assets/FREEZER.png"
-          alt="Freezer"
-          className="mx-auto w-50"
-        />
-      </div>
-      <div className="flex flex-col items-center justify-center h-10">
-        <form
-          onSubmit={handleLogin}
-          className="bg-white p-9 rounded-lg shadow-md"
-        >
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Correo electrónico"
+    <div className=" flex items-center justify-center flex-col">
+      <div className="flex flex-col items-center justify-center">
+        <div className="overflow-hidden h-[380px]">
+          <img
+            src="/src/assets/FREEZER.png"
+            alt="Freezer"
+            className="mx-auto w-50"
           />
-          <br />
-          <br />
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Contraseña"
-          />
-          <br />
-          <br />
-          <button
-            className="bg-blue-500 text-white p-2 rounded-md"
-            type="submit"
+        </div>
+        <div className="flex flex-col items-center justify-center">
+          <form
+            onSubmit={handleLogin}
+            className="bg-white p-9 rounded-lg shadow-md"
           >
-            Iniciar sesión
-          </button>
-          <br />
-          <button
-            onClick={handleRegister}
-            className="bg-green-500 text-white p-2 rounded-md mt-2"
-          >
-            Registrate
-          </button>
-        </form>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Correo electrónico"
+            />
+            <br />
+            <br />
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Contraseña"
+            />
+            <br />
+            <br />
+            <button
+              className="bg-blue-500 text-white p-2 rounded-md"
+              type="submit"
+            >
+              Iniciar sesión
+            </button>
+            <br />
+            <button
+              onClick={handleRegister}
+              className="bg-green-500 text-white p-2 rounded-md mt-2"
+            >
+              Registrate
+            </button>
+          </form>
+        </div>
       </div>
 
-      <button onClick={handleRegisterApi}>Inicia sesion con API</button>
+      <button className="bg-red-600 text-white" onClick={handleRegisterApi}>
+        Inicia sesion con API
+      </button>
     </div>
   );
 }

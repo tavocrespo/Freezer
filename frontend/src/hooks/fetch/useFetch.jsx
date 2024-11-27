@@ -1,18 +1,17 @@
-import React, { useState } from "react";
-
 const useFetch = () => {
-  const [dataResponse, setDataResponse] = useState(null);
-
   const fetchData = async (url, options) => {
-    const response = await fetch(url, options);
-    const data = await response.json();
-    console.log(data);
-    setDataResponse(data);
+    try {
+      const response = await fetch(url, options);
+      const data = await response.json();
+      //   setDataResponse(data);
+      return data;
+    } catch (error) {
+      console.log("Error al registrarse " + error.message);
+    }
   };
 
   return {
     fetchData,
-    dataResponse,
   };
 };
 
