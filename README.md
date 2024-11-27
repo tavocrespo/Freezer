@@ -1,0 +1,1 @@
+## Aplicativo para consultar tabla de neveras distribuidas por diferentes ciudades del pais usando React.JS y Laravel 11.
