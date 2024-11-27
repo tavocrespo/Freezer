@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Validator;
 
 class UserServices
 {
+    // Funcion para obtener usuario a traves de la id
     public function getUserService($id)
     {
 
@@ -20,6 +21,7 @@ class UserServices
         return response()->json(['message' => 'User found', 'success' => true, 'data' => $user], );
     }
 
+    // Funcion para crear usuario o registrarlo
     public function createUserService($request)
     {
         $data = $request->all();
@@ -57,6 +59,7 @@ class UserServices
             ->cookie('auth_token', $token);
     }
 
+    // Obtener todos los usuarios
     public function getAllUsersService()
     {
         $users = User::all();

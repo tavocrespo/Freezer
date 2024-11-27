@@ -13,6 +13,13 @@ class ActivoServices
 
     public function getActivoService($id)
     {
+
+    }
+
+    public function createActivoService($dataRequest)
+    {
+        $data = $dataRequest->all();
+
         
     }
 }
