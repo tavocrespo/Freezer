@@ -1,4 +1,5 @@
 import { Toaster } from "react-hot-toast";
+import { useState } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -13,7 +14,24 @@ import Config from "./Menu/Config";
 import Soporte from "./Menu/Soporte";
 import ActivosPage from "./pages/ActivosPage";
 
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import appFirebase from "./firebase.js";  
+const auth = getAuth(appFirebase)
+
+
+
 function App() {
+    const [usuario, setUsuario]= useState("")
+    onAuthStateChanged(auth,(usuarioFirebase)=> {
+      if (usuarioFirebase) {
+          setUsuario(usuarioFirebase)
+      }
+      else
+      {
+        setUsuario(null)
+      }
+    } )
+
   return (
     <>
       <Router>
